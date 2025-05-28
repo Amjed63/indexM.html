@@ -11,33 +11,94 @@
     <link rel="stylesheet" href="css/all.min.css">               
 </head>
       <style>
-    #loading-screen {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: white;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  #loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .logo-container {
+    position: relative;
+  }
+
+  .logo {
+    width: 150px;
+    height: auto;
+    animation: pulse-rotate 10s infinite;
+    filter: grayscale(100%) brightness(0.2);
+  }
+
+  .loading-text {
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .shine {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: shine 2s infinite;
+    pointer-events: none;
+  }
+
+  /* الحركة الكاملة: نبض → انتظار → دوران → انتظار */
+  @keyframes pulse-rotate {
+    0% {
+      transform: scale(1) rotate(0deg);
     }
-    .loader {
-      border: 8px solid #f3f3f3;
-      border-top: 8px solid #d35400;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
+    10% {
+      transform: scale(1.1) rotate(0deg);
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    20% {
+      transform: scale(1) rotate(0deg);
     }
+    30% {
+      transform: scale(1) rotate(0deg); /* انتظار 3 ثواني تقريبًا */
+    }
+    50% {
+      transform: scale(1) rotate(360deg);
+    }
+    70% {
+      transform: scale(1) rotate(360deg); /* انتظار 2 ثانية */
+    }
+    100% {
+      transform: scale(1) rotate(360deg);
+    }
+  }
+
+  @keyframes shine {
+    0% { left: -75%; }
+    100% { left: 125%; }
+  }
       </style>
 <body>
-      <div id="loading-screen">
-    <div class="loader"></div>
+       <!-- شاشة التحميل -->
+<div id="loading-screen">
+  <div class="logo-container">
+    <img src="img sejaf/logo-light.png" alt="شعار موني" class="logo" />
+    <span class="shine"></span>
+    <p class="loading-text">جارٍ التحميل...</p>
   </div>
+</div>
 
     
   <header>
@@ -588,12 +649,10 @@ function startCount(el) {
   }
 </script>
     <!-----loding---->
-  <script>
-    window.addEventListener('load', function () {
-      document.getElementById('loading-screen').style.display = 'none';
-    });
-  </script>
+<script>
+  window.addEventListener("load", function () {
+    document.getElementById("loading-screen").style.display = "none";
+  });
+</script>
 </body>
 </html>
-
-
